@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build",
+    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --prefix-paths",
     "clean": "gatsby clean",
     "bootstrap": "yarn update-versions",
     "update-static-assets": "node scripts/downloadSearchAssets.js",
