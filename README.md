@@ -1,4 +1,4 @@
-Deploying [TypeScript-Website](https://github.com/QubitPi/TypeScript-Website) (fork) to GitHub Pages
+Deploying [TypeScript-Website (fork)](https://github.com/QubitPi/TypeScript-Website) to GitHub Pages
 ----------------------------------------------------------------------------------------------------
 
 > Building the TypeScript-Website [requires Node **14**](https://github.com/microsoft/TypeScript-Website/issues/2355).
