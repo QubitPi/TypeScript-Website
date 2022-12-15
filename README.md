@@ -1,8 +1,8 @@
-Deploying [TypeScript-Website](https://github.com/QubitPi/TypeScript-Website) to GitHub Pages
----------------------------------------------------------------------------------------------
+\[Fork\] Deploying [TypeScript-Website](https://github.com/QubitPi/TypeScript-Website) to GitHub Pages
+------------------------------------------------------------------------------------------------------
 
 > Building the TypeScript-Website [requires Node **14**](https://github.com/microsoft/TypeScript-Website/issues/2355).
-> If the build environment is Node 14+ such as _16_, switch version first using, for example,
+> If the build environment is Node 14+ such as _16_, switch Node version first using, for example,
 > [nvm](https://tecadmin.net/install-nvm-macos-with-homebrew/):
 >
 > ```bash
@@ -25,10 +25,11 @@ yarn build
 yarn build-site
 ```
 
-At this moment, _gh-pages-deployable_ is located under **TypeScript-Website/packages/typescriptlang-org/public**. 
+At this moment, _gh-pages-deployable_ is located under `TypeScript-Website/packages/typescriptlang-org/public`. 
+
 Alternatively, we can
 [spin-up an HTTP server](https://www.digitalocean.com/community/tutorials/python-simplehttpserver-http-server) and view 
-the docs locally at [localhost:9000](localhost:9000):
+the docs locally at localhost:9000:
 
 ```bash
 cd packages/typescriptlang-org/public
@@ -37,12 +38,12 @@ python3 -m http.server 9000
 
 > Note that running `yarn start` at this moment stands up 2 sites:
 >
-> 1. The [documentation site](http://localhost:8000/), what we've been talking about so far
-> 2. A [**GraphQL schema introspect page**](http://localhost:8000/___graphql), which could be very interesting to
+> 1. the [documentation site](http://localhost:8000/), what we've been talking so far, and
+> 2. a [**GraphQL schema introspect page**](http://localhost:8000/___graphql), which could be very interesting to
 >    someone, like me
->
-> * Don't forget to undo `nvm use 14` if set.
-> * The TypeScript-Website is based on Gatsby framework and its config is at
+
+> * **Don't forget to undo `nvm use 14` if set**.
+> * The TypeScript-Website generates website using Gatsby framework and its config is at
 >   [gatsby-config.js](./packages/typescriptlang-org/gatsby-config.js)
 
 ### Meta
