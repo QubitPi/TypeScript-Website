@@ -1,3 +1,53 @@
+Deploying [TypeScript-Website (fork)](https://github.com/QubitPi/TypeScript-Website) to GitHub Pages
+----------------------------------------------------------------------------------------------------
+
+> Building the TypeScript-Website [requires Node **14**](https://github.com/microsoft/TypeScript-Website/issues/2355).
+> If the build environment is Node 14+ such as _16_, switch Node version first using, for example,
+> [nvm](https://tecadmin.net/install-nvm-macos-with-homebrew/):
+>
+> ```bash
+> nvm use 14
+> ```
+
+The command above assumes nvm package has already been installed
+
+The [upstream](https://github.com/microsoft/TypeScript-Website)'s [deploy logic](./.github/workflows/deploy-prod.yml) is 
+the most up-to-date documentation on how to build the site. Here is the procedure that works based on that at the time
+of writing:
+
+```bash
+git clone https://github.com/QubitPi/TypeScript-Website.git
+cd TypeScript-Website/
+
+yarn install
+yarn bootstrap
+yarn build
+yarn build-site
+```
+
+At this moment, _gh-pages-deployable_ is located under `TypeScript-Website/packages/typescriptlang-org/public`. 
+
+Alternatively, we can
+[spin-up an HTTP server](https://www.digitalocean.com/community/tutorials/python-simplehttpserver-http-server) and view 
+the docs locally at localhost:9000:
+
+```bash
+cd packages/typescriptlang-org/public
+python3 -m http.server 9000
+```
+
+> Note that running `yarn start` at this moment stands up 2 sites:
+>
+> 1. the [documentation site](http://localhost:8000/), what we've been talking so far, and
+> 2. a [**GraphQL schema introspect page**](http://localhost:8000/___graphql), which could be very interesting to
+>    someone, like me
+
+> * **Don't forget to undo `nvm use 14` if set**.
+> * The TypeScript-Website generates website using Gatsby framework and its config is at
+>   [gatsby-config.js](./packages/typescriptlang-org/gatsby-config.js)
+
+---
+
 ### Meta
 
 - **URLs:** [production](https://www.typescriptlang.org)
