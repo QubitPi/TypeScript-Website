@@ -19,8 +19,9 @@ require("ts-node").register({ files: true })
 const { join } = require("path")
 
 module.exports = {
+  pathPrefix: `/TypeScript-Website`,
   siteMetadata: {
-    siteUrl: `https://www.typescriptlang.org/`,
+    siteUrl: `https://qubitpi.github.io/`,
   },
   flags: {
     DEV_SSR: false,
