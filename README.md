@@ -1,5 +1,5 @@
-\[Fork\] Deploying [TypeScript-Website](https://github.com/QubitPi/TypeScript-Website) to GitHub Pages
-------------------------------------------------------------------------------------------------------
+Deploying [TypeScript-Website](https://github.com/QubitPi/TypeScript-Website) (fork) to GitHub Pages
+----------------------------------------------------------------------------------------------------
 
 > Building the TypeScript-Website [requires Node **14**](https://github.com/microsoft/TypeScript-Website/issues/2355).
 > If the build environment is Node 14+ such as _16_, switch Node version first using, for example,
@@ -45,6 +45,8 @@ python3 -m http.server 9000
 > * **Don't forget to undo `nvm use 14` if set**.
 > * The TypeScript-Website generates website using Gatsby framework and its config is at
 >   [gatsby-config.js](./packages/typescriptlang-org/gatsby-config.js)
+
+---
 
 ### Meta
 
