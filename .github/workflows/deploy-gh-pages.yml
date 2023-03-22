@@ -1,0 +1,36 @@
+# Copyright 2023 Jiaqi Liu. All rights reserved.
+---
+name: Deploy to GitHub Pages
+
+"on":
+  push:
+    branches:
+      - master
+
+jobs:
+  tests:
+    uses: ./.github/workflows/CI.yml
+    secrets: inherit
+
+  deploy-documentation:
+    needs: tests
+    name: Deploy Documentation to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Build documentation
+        run: |
+          yarn install
+          yarn bootstrap
+          yarn build
+          yarn build-site
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./packages/typescriptlang-org/public
+          user_name: QubitPi
+          user_email: jack20191124@proton.me
