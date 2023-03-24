@@ -159,10 +159,10 @@ cats.boris;
 
 ### Adding Element to Record
 
-Suppose we have a `Record` set up like this: `let myRecord = Record<String, Set<String>>`. We would end up failing if we 
+Suppose we have a `Record` set up like this: `let myRecord = Record<string, Set<string>>`. We would end up failing if we 
 attempt to add an element to a set inside the record in the following way 
 
-```ts twoslash
+```typescript
 let key = "key";
 let stringToAdd = "stringToAdd";
 myRecord[key].add(stringToAdd);
@@ -170,7 +170,7 @@ myRecord[key].add(stringToAdd);
 
 Instead, we should use the square brackets `[]` and an assignment to add elements to the record.
 
-```ts twoslash
+```typescript
 let mySet: Set<string> = new Set();
 mySet.add("stringToAdd");
 
