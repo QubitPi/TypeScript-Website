@@ -157,6 +157,28 @@ cats.boris;
 // ^?
 ```
 
+### Adding Element to Record
+
+Suppose we have a `Record` set up like this: `let myRecord = Record<string, Set<string>>`. We would end up failing if we 
+attempt to add an element to a set inside the record in the following way 
+
+```typescript
+let key = "key";
+let stringToAdd = "stringToAdd";
+myRecord[key].add(stringToAdd);
+```
+
+Instead, we should use the square brackets `[]` and an assignment to add elements to the record.
+
+```typescript
+let mySet: Set<string> = new Set();
+mySet.add("stringToAdd");
+
+let myRecord: Record<string, Set<string>> = {};
+
+myRecord["key"] = mySet;    // <--- Like this
+```
+
 ## `Pick<Type, Keys>`
 
 <blockquote class=bg-reading>
