@@ -1,5 +1,5 @@
 import { PlaygroundPlugin } from ".";
-declare type Sandbox = import("@typescript/sandbox").Sandbox;
+type Sandbox = import("@typescript/sandbox").Sandbox;
 export declare const createDragBar: (side: "left" | "right") => HTMLDivElement;
 export declare const sidebarHidden: () => boolean;
 export declare const createSidebar: () => HTMLDivElement;

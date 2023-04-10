@@ -21,7 +21,7 @@ export interface ATABootstrapConfig {
     /** If you need a custom logger instead of the console global */
     logger?: Logger;
 }
-declare type ModuleMeta = {
+type ModuleMeta = {
     state: "loading";
 };
 /**

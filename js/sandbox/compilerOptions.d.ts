@@ -1,11 +1,13 @@
 import { SandboxConfig } from ".";
-declare type CompilerOptions = import("monaco-editor").languages.typescript.CompilerOptions;
-declare type Monaco = typeof import("monaco-editor");
+type CompilerOptions = import("monaco-editor").languages.typescript.CompilerOptions;
+type Monaco = typeof import("monaco-editor");
 /**
  * These are the defaults, but they also act as the list of all compiler options
  * which are parsed in the query params.
  */
-export declare function getDefaultSandboxCompilerOptions(config: SandboxConfig, monaco: Monaco): {
+export declare function getDefaultSandboxCompilerOptions(config: SandboxConfig, monaco: Monaco, ts: {
+    versionMajorMinor: string;
+}): {
     [x: string]: import("monaco-editor").languages.typescript.CompilerOptionsValue;
     allowJs?: boolean | undefined;
     allowSyntheticDefaultImports?: boolean | undefined;

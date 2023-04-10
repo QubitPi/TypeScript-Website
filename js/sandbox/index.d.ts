@@ -1,13 +1,13 @@
 import { TypeScriptWorker } from "./tsWorker";
 import lzstring from "./vendor/lzstring.min";
 import * as tsvfs from "./vendor/typescript-vfs";
-declare type CompilerOptions = import("monaco-editor").languages.typescript.CompilerOptions;
-declare type Monaco = typeof import("monaco-editor");
+type CompilerOptions = import("monaco-editor").languages.typescript.CompilerOptions;
+type Monaco = typeof import("monaco-editor");
 /**
  * These are settings for the playground which are the equivalent to props in React
  * any changes to it should require a new setup of the playground
  */
-export declare type SandboxConfig = {
+export type SandboxConfig = {
     /** The default source code for the playground */
     text: string;
     /** @deprecated */
@@ -95,7 +95,7 @@ export declare const createTypeScriptSandbox: (partialConfig: Partial<SandboxCon
         domID: string;
     };
     /** A list of TypeScript versions you can use with the TypeScript sandbox */
-    supportedVersions: readonly ["5.0.2", "4.9.5", "4.8.4", "4.7.4", "4.6.4", "4.5.5", "4.4.4", "4.3.5", "4.2.3", "4.1.5", "4.0.5", "3.9.7", "3.8.3", "3.7.5", "3.6.3", "3.5.1", "3.3.3", "3.1.6", "3.0.1", "2.8.1", "2.7.2", "2.4.1"];
+    supportedVersions: readonly ["5.0.4", "4.9.5", "4.8.4", "4.7.4", "4.6.4", "4.5.5", "4.4.4", "4.3.5", "4.2.3", "4.1.5", "4.0.5", "3.9.7", "3.8.3", "3.7.5", "3.6.3", "3.5.1", "3.3.3", "3.1.6", "3.0.1", "2.8.1", "2.7.2", "2.4.1"];
     /** The monaco editor instance */
     editor: import("monaco-editor").editor.IStandaloneCodeEditor;
     /** Either "typescript" or "javascript" depending on your config */
@@ -260,5 +260,5 @@ export declare const createTypeScriptSandbox: (partialConfig: Partial<SandboxCon
     /** Adds a file to the vfs used by the editor */
     addLibraryToRuntime: (code: string, _path: string) => void;
 };
-export declare type Sandbox = ReturnType<typeof createTypeScriptSandbox>;
+export type Sandbox = ReturnType<typeof createTypeScriptSandbox>;
 export {};

@@ -6,7 +6,7 @@ export declare const getNPMVersionsForModule: (config: ATABootstrapConfig, modul
 export declare const getNPMVersionForModuleReference: (config: ATABootstrapConfig, moduleName: string, reference: string) => Promise<Error | {
     version: string | null;
 }>;
-export declare type NPMTreeMeta = {
+export type NPMTreeMeta = {
     default: string;
     files: Array<{
         name: string;

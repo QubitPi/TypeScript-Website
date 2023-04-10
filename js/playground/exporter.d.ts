@@ -1,5 +1,5 @@
 import { UI } from "./createUI";
-declare type Sandbox = import("@typescript/sandbox").Sandbox;
+type Sandbox = import("@typescript/sandbox").Sandbox;
 export declare const createExporter: (sandbox: Sandbox, monaco: typeof import("monaco-editor"), ui: UI) => {
     openProjectInStackBlitz: () => void;
     openProjectInCodeSandbox: () => void;

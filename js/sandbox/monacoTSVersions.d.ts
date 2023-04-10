@@ -1,6 +1,6 @@
 import { ReleaseVersions } from './release_data';
 /** The versions you can get for the sandbox */
-export declare type SupportedTSVersions = ReleaseVersions | 'Latest';
+export type SupportedTSVersions = ReleaseVersions | 'Latest';
 /**
  * The versions of monaco-typescript which we can use
  * for backwards compatibility with older versions
