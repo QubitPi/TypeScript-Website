@@ -38,6 +38,54 @@ type Person = { age: number; name: string; alive: boolean };
 type I1 = Person["alve"];
 ```
 
+> Solving **No index signature with a parameter of type 'string' was found on type** Error
+> 
+> The error "No index signature with a parameter of type 'string' was found on type" occurs when we use a value of type 
+> string to index an object with specific keys. To solve the error, type the `string` as one of the object's keys using
+> `keyof typeof obj`.
+> 
+> ![Error loading no-index-signature-with-parameter-found.png](/images/docs/no-index-signature-with-parameter-found.png)
+> 
+> Here is an example of how the error occurs.
+> 
+> ```ts
+> const key = 'country' as string;
+> 
+> const obj = {
+> name: 'Bobby Hadz',
+> country: 'Germany',
+> };
+> 
+> // ⛔️ Error:  No index signature with a parameter of type
+> // 'string' was found on type '{ name: string; country: string; }'.ts(7053)
+> console.log(obj[key]);
+> ```
+> 
+> The `key` variable has a type of string and this could be any string. We got the error when we tried to access an
+> object that has name and country properties.
+> 
+> **TypeScript is complaining that the `string` type is too broad and not all strings are keys in the object. We have to 
+> make sure the specific string is one of the object's keys.
+> 
+> **The first way to solve the error is to use a
+> [type assertion](https://qubitpi.github.io/TypeScript-Website/docs/handbook/2/everyday-types.html#type-assertions).**
+> 
+> ```ts
+> const key = 'country' as string;
+> 
+> const obj = {
+> name: 'Bobby Hadz',
+> country: 'Germany',
+> };
+> 
+> // 👇️ "Germany"
+> console.log(obj[key as keyof typeof obj]);
+> ```
+> 
+> We used a type assertion to indicate to TypeScript that the `key` variable is not of type `string`, but rather it is a 
+> union type containing only the keys of the object. With that, TypeScript lets us access the property without throwing
+> the error.
+
 Another example of indexing with an arbitrary type is using `number` to get the type of an array's elements.
 We can combine this with `typeof` to conveniently capture the element type of an array literal:
 
