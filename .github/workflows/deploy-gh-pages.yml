@@ -9,7 +9,6 @@ name: Deploy to GitHub Pages
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - v2
       - master
 
 jobs:

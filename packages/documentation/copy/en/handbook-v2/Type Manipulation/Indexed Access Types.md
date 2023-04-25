@@ -68,7 +68,7 @@ type I1 = Person["alve"];
 > make sure the specific string is one of the object's keys.
 > 
 > **The first way to solve the error is to use a
-> [type assertion](https://qubitpi.github.io/TypeScript-Website/docs/handbook/2/everyday-types.html#type-assertions).**
+> [type assertion](/docs/handbook/2/everyday-types.html#type-assertions).**
 > 
 > ```ts
 > const key = 'country' as string;
