@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    if: !github.event.pull_request.head.repo.fork
     runs-on: ubuntu-latest
     steps:
       - name: Download site build
