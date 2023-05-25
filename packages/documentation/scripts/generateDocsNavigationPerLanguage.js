@@ -94,6 +94,7 @@ const handbookPages = [
       { file: "reference/Type Compatibility.md" },
       { file: "reference/Type Inference.md" },
       { file: "reference/Variable Declarations.md" },
+      { file: "reference/Dependency Injection Containers.md" },
     ],
   },
   {
