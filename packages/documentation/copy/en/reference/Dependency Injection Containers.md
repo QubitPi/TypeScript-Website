@@ -75,6 +75,11 @@ We can get a high-level overview of the findings in the table below.
 
 That is how we ended up with 2 main candidates - InversifyJS & Typed Inject.
 
+We also looked at [NPM trends](https://npmtrends.com/inversify-vs-tsyringe-vs-typed-inject-vs-typedi) to make sure that
+the weekly downloads does reflect the overall popularity of those DI livraries:
+
+![Error loading DI-compare.png](/images/docs/DI-compare.png)
+
 ## InversifyJS
 
 A very popular, easy-to-use tool with descent-quality documentation that provides a lot of tools and extensions through 
@@ -126,7 +131,8 @@ container.bind<FileSystem<string>>(TYPES.FileSystem).to(InversifyFileSystem).inS
 container.bind<SettingsService>(TYPES.SettingsService).to(InversifySettingsTxtService).inSingletonScope();
 ```
 
-InversifyJS uses the fluent interface pattern. The IoC container achieves type binding between tokens and classes by declaring it explicitly in code. Getting instances of managed classes requires only one call with proper casting:
+InversifyJS uses the fluent interface pattern. The IoC container achieves type binding between tokens and classes by 
+declaring it explicitly in code. Getting instances of managed classes requires only one call with proper casting:
 
 ```ts
 const logger = container.get<InversifyLogger>(TYPES.Logger);
@@ -172,9 +178,8 @@ const appInjector = createInjector()
 
 The container is instantiated using the _createInjector_ functions, with token-to-class bindings declared explicitly.
 
-Developers can access instances of provided classes using the _resolve_ function. Injectable classes can be obtained using the _injectClass_ method.
-
-
+Developers can access instances of provided classes using the _resolve_ function. Injectable classes can be obtained 
+using the _injectClass_ method.
 
 ```ts
 const logger = appInjector.resolve("logger");
