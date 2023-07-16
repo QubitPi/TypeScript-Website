@@ -774,6 +774,26 @@ console.log(s.secretKey);
 
 `private` also allows access using bracket notation during type checking. This makes `private`-declared fields potentially easier to access for things like unit tests, with the drawback that these fields are _soft private_ and don't strictly enforce privacy.
 
+> Note: Technically, in current versions of TypeScript private methods are only compile-time checked to be private - so 
+> we can call them. For example
+> 
+> ```ts twoslash
+> class Example {
+>   public publicMethod() {
+>     return 'public';
+>   }
+> 
+>   private privateMethod() {
+>     return 'private';
+>   }
+> }
+> 
+> const example = new Example();
+> 
+> console.log(example.publicMethod()); // 'public'
+> console.log(example.privateMethod()); // 'private'
+> ```
+
 ```ts twoslash
 // @errors: 2341
 class MySafe {
