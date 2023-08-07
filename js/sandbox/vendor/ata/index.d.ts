@@ -33,7 +33,7 @@ type ModuleMeta = {
  * basically exported for tests and should be considered
  * implementation details by consumers.
  */
-export declare const setupTypeAcquisition: (config: ATABootstrapConfig) => (initialSourceFile: string) => void;
+export declare const setupTypeAcquisition: (config: ATABootstrapConfig) => (initialSourceFile: string) => Promise<void>;
 /**
  * Pull out any potential references to other modules (including relatives) with their
  * npm versioning strat too if someone opts into a different version via an inline end of line comment
