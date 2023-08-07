@@ -78,7 +78,7 @@ That is how we ended up with 2 main candidates - InversifyJS & Typed Inject.
 We also looked at [NPM trends](https://npmtrends.com/inversify-vs-tsyringe-vs-typed-inject-vs-typedi) to make sure that
 the weekly downloads does reflect the overall popularity of those DI livraries:
 
-![Error loading DI-compare.png](/images/docs/DI-compare.png)
+![Error loading DI-compare.png](/TypeScript-Website/images/docs/DI-compare.png)
 
 ## InversifyJS
 
