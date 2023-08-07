@@ -526,7 +526,7 @@ Colors can help discern where a message starts and ends, and these visual clues 
 
 By just passing the [`pretty`](/tsconfig#pretty) command line option, TypeScript gives more colorful output with context about where things are going wrong.
 
-![Showing off pretty error messages in ConEmu](https://raw.githubusercontent.com/wiki/Microsoft/TypeScript/images/new-in-typescript/pretty01.png)
+![Showing off pretty error messages in ConEmu](https://raw.githubusercontent.com/wiki/Microsoft/TypeScript/TypeScript-Website/images/new-in-typescript/pretty01.png)
 
 ## Colorization of JSX code in VS 2015
 
@@ -588,7 +588,7 @@ This includes ASP.NET v4 projects, _Console Application_, and the _Html Applicat
 Further, you are no longer limited to a single `tsconfig.json` file but can add multiple, and each will be built as part of the project.
 This allows you to separate the configuration for different parts of your application without having to use multiple different projects.
 
-![Showing off tsconfig.json in Visual Studio](https://raw.githubusercontent.com/wiki/Microsoft/TypeScript/images/new-in-typescript/tsconfig-in-vs.png)
+![Showing off tsconfig.json in Visual Studio](https://raw.githubusercontent.com/wiki/Microsoft/TypeScript/TypeScript-Website/images/new-in-typescript/tsconfig-in-vs.png)
 
 We also disable the project properties page when you add a `tsconfig.json` file.
 This means that all configuration changes have to be made in the `tsconfig.json` file itself.
