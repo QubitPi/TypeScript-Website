@@ -18,25 +18,25 @@ Next, if your version of Visual Studio does not already have the latest TypeScri
 3. Search for **.NET Core** in the project search bar
 4. Select **ASP.NET Core Web Application** and press the _Next_ button
 
-![Visual Studio Project Window Screenshot](/TypeScript-Website/images/tutorials/aspnet/createwebapp.png)
+![Visual Studio Project Window Screenshot](/images/tutorials/aspnet/createwebapp.png)
 
 5. Name your project and solution. After select the _Create_ button
 
-![Visual Studio New Project Window Screenshot](/TypeScript-Website/images/tutorials/aspnet/namewebapp.png)
+![Visual Studio New Project Window Screenshot](/images/tutorials/aspnet/namewebapp.png)
 
 6. In the last window, select the **Empty** template and press the _Create_ button
 
-![Visual Studio Web Application Screenshot](/TypeScript-Website/images/tutorials/aspnet/emptytemplate.png)
+![Visual Studio Web Application Screenshot](/images/tutorials/aspnet/emptytemplate.png)
 
 Run the application and make sure that it works.
 
-![A screenshot of Edge showing "Hello World" as success](/TypeScript-Website/images/tutorials/aspnet/workingsite.png)
+![A screenshot of Edge showing "Hello World" as success](/images/tutorials/aspnet/workingsite.png)
 
 ### Set up the server
 
 Open **Dependencies > Manage NuGet Packages > Browse.** Search and install `Microsoft.AspNetCore.StaticFiles` and `Microsoft.TypeScript.MSBuild`:
 
-![The Visual Studio search for Nuget](/TypeScript-Website/images/tutorials/aspnet/downloaddependency.png)
+![The Visual Studio search for Nuget](/images/tutorials/aspnet/downloaddependency.png)
 
 Open up your `Startup.cs` file and edit your `Configure` function to look like this:
 
@@ -59,15 +59,15 @@ You may need to restart VS for the red squiggly lines below `UseDefaultFiles` an
 
 Next we will add a new folder and call it `scripts`.
 
-![The Path of "Add" then "New Folder" in Visual Studio from a Web Project](/TypeScript-Website/images/tutorials/aspnet/newfolder.png)
+![The Path of "Add" then "New Folder" in Visual Studio from a Web Project](/images/tutorials/aspnet/newfolder.png)
 
-![](/TypeScript-Website/images/tutorials/aspnet/scripts.png)
+![](/images/tutorials/aspnet/scripts.png)
 
 ## Add TypeScript code
 
 Right click on `scripts` and click **New Item**. Then choose **TypeScript File** and name the file `app.ts`
 
-![A highlight of the new folder](/TypeScript-Website/images/tutorials/aspnet/tsfile.png)
+![A highlight of the new folder](/images/tutorials/aspnet/tsfile.png)
 
 ### Add example code
 
@@ -89,7 +89,7 @@ _Configure the TypeScript compiler_
 
 First we need to tell TypeScript how to build. Right click on `scripts` and click **New Item**. Then choose **TypeScript Configuration File** and use the default name of `tsconfig.json`
 
-![A screenshot showing the new file dialogue with TypeScript JSON Config selected](/TypeScript-Website/images/tutorials/aspnet/tsconfig.png)
+![A screenshot showing the new file dialogue with TypeScript JSON Config selected](/images/tutorials/aspnet/tsconfig.png)
 
 Replace the contents of the `tsconfig.json` file with:
 
@@ -119,7 +119,7 @@ Note: `"ESNext"` targets latest supported
 
 We need to setup NPM so that JavaScript packages can be downloaded. Right click on the project and select **New Item**. Then choose **NPM Configuration File** and use the default name of `package.json`.
 
-![Screenshot of VS showing new file dialog with 'npm configuration file' selected](/TypeScript-Website/images/tutorials/aspnet/packagejson.png)
+![Screenshot of VS showing new file dialog with 'npm configuration file' selected](/images/tutorials/aspnet/packagejson.png)
 
 Inside the `"devDependencies"` section of the `package.json` file, add _gulp_ and _del_
 
@@ -134,7 +134,7 @@ Visual Studio should start installing gulp and del as soon as you save the file.
 
 After you should see an `npm` folder in your solution explorer
 
-![Screenshot of VS showing npm folder](/TypeScript-Website/images/tutorials/aspnet/npm.png)
+![Screenshot of VS showing npm folder](/images/tutorials/aspnet/npm.png)
 
 #### _Set up gulp_
 
@@ -168,11 +168,11 @@ The first line tells Visual Studio to run the task ‘default’ after the build
 
 Now right-click on `gulpfile.js` and click Task Runner Explorer.
 
-![Screenshot of right clicking on the "Gulpfile.js" with 'Task Runner Explorer' selected](/TypeScript-Website/images/tutorials/aspnet/taskrunner.png)
+![Screenshot of right clicking on the "Gulpfile.js" with 'Task Runner Explorer' selected](/images/tutorials/aspnet/taskrunner.png)
 
 If ‘default’ and ‘clean’ tasks don’t show up, refresh the explorer:
 
-![Screenshot of task explorer with "Gulpfile.js" in it](/TypeScript-Website/images/tutorials/aspnet/taskrunnerrefresh.png)
+![Screenshot of task explorer with "Gulpfile.js" in it](/images/tutorials/aspnet/taskrunnerrefresh.png)
 
 ## Write a HTML page
 
@@ -210,6 +210,6 @@ Right click on the `wwwroot` folder (if you don't see the folder try building th
 3. Put a breakpoint on the line with return.
 4. Type in the boxes and confirm that the breakpoint hits in TypeScript code and that inspection works correctly.
 
-![An image showing the debugger running the code you have just wrote](/TypeScript-Website/images/tutorials/aspnet/debugger.png)
+![An image showing the debugger running the code you have just wrote](/images/tutorials/aspnet/debugger.png)
 
 Congrats you've built your own .NET Core project with a TypeScript frontend.
