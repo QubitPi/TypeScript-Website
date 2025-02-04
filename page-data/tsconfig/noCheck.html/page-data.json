@@ -1,0 +1,1 @@
+{"componentChunkName":"component---src-templates-tsconfig-option-one-page-tsx","path":"/tsconfig/noCheck.html","result":{"pageContext":{"title":"noCheck","lang":"en","html":"<p>Disable full type checking (only critical parse and emit errors will be reported).</p>","redirectHref":"/tsconfig#noCheck"}},"staticQueryHashes":[],"slicesMap":{}}

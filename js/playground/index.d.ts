@@ -43,9 +43,9 @@ export declare const setupPlayground: (sandbox: Sandbox, monaco: Monaco, config:
     exporter: {
         openProjectInStackBlitz: () => void;
         openProjectInCodeSandbox: () => void;
-        copyAsMarkdownIssue: (e: React.MouseEvent<Element, MouseEvent>) => Promise<boolean>;
-        copyForChat: (e: React.MouseEvent<Element, MouseEvent>) => boolean;
-        copyForChatWithPreview: (e: React.MouseEvent<Element, MouseEvent>) => boolean;
+        copyAsMarkdownIssue: (e: React.MouseEvent) => Promise<boolean>;
+        copyForChat: (e: React.MouseEvent) => boolean;
+        copyForChatWithPreview: (e: React.MouseEvent) => boolean;
         openInTSAST: () => void;
         openInBugWorkbench: () => void;
         openInVSCodeDev: () => void;
@@ -70,28 +70,28 @@ export declare const setupPlayground: (sandbox: Sandbox, monaco: Monaco, config:
             p: (subtitle: string) => HTMLElement;
             showEmptyScreen: (message: string) => HTMLDivElement;
             listDiags: (model: import("monaco-editor").editor.ITextModel, diags: import("typescript").DiagnosticRelatedInformation[]) => HTMLUListElement;
-            clearDeltaDecorators: (force?: true | undefined) => void;
+            clearDeltaDecorators: (force?: true) => void;
             localStorageOption: (setting: import("./ds/createDesignSystem").LocalStorageOption) => HTMLLIElement;
             showOptionList: (options: import("./ds/createDesignSystem").LocalStorageOption[], style: import("./ds/createDesignSystem").OptionsListConfig) => void;
             createTextInput: (config: {
                 id: string;
                 placeholder: string;
-                onChanged?: ((text: string, input: HTMLInputElement) => void) | undefined;
+                onChanged?: (text: string, input: HTMLInputElement) => void;
                 onEnter: (text: string, input: HTMLInputElement) => void;
-                value?: string | undefined;
-                keepValueAcrossReloads?: true | undefined;
-                isEnabled?: ((input: HTMLInputElement) => boolean) | undefined;
+                value?: string;
+                keepValueAcrossReloads?: true;
+                isEnabled?: (input: HTMLInputElement) => boolean;
             }) => HTMLFormElement;
             createASTTree: (node: import("typescript").Node, settings?: {
-                closedByDefault?: true | undefined;
-            } | undefined) => HTMLDivElement;
+                closedByDefault?: true;
+            }) => HTMLDivElement;
             button: (settings: {
                 label: string;
-                onclick?: ((ev: MouseEvent) => void) | undefined;
+                onclick?: (ev: MouseEvent) => void;
             }) => HTMLInputElement;
             createTabBar: () => HTMLDivElement;
             createTabButton: (text: string) => HTMLButtonElement;
-            declareRestartRequired: (i?: ((key: string) => string) | undefined) => void;
+            declareRestartRequired: (i?: (key: string) => string) => void;
             createSubDesignSystem: () => any;
         };
         flashHTMLElement: (element: HTMLElement) => void;

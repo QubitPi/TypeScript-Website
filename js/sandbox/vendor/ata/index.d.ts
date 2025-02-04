@@ -52,9 +52,9 @@ export declare const getFileTreeForModuleWithTag: (config: ATABootstrapConfig, m
     moduleName: string;
     version: string;
     default: string;
-    files: {
+    files: Array<{
         name: string;
-    }[];
+    }>;
 } | {
     error: Error;
     userFacingMessage: string;

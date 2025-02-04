@@ -1,4 +1,3 @@
-/// <reference types="react" />
 export interface UI {
     /** Show a text modal, with some buttons */
     showModal: (message: string, postFocalElement: HTMLElement, subtitle?: string, buttons?: {

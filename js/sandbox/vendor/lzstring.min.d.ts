@@ -2,7 +2,7 @@ export function compressToBase64(o: any): string;
 export function decompressFromBase64(r: any): string | null;
 export function compressToUTF16(o: any): string;
 export function decompressFromUTF16(o: any): string | null;
-export function compressToUint8Array(o: any): Uint8Array;
+export function compressToUint8Array(o: any): Uint8Array<ArrayBuffer>;
 export function decompressFromUint8Array(o: any): string | null;
 export function compressToEncodedURIComponent(o: any): string;
 export function decompressFromEncodedURIComponent(r: any): string | null;

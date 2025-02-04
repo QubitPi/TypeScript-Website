@@ -45,23 +45,23 @@ export declare function defaultPlaygroundSettings(): {
     /** The default source code for the playground */
     text: string;
     /** @deprecated */
-    useJavaScript?: boolean | undefined;
+    useJavaScript?: boolean;
     /** The default file for the playground  */
     filetype: "js" | "ts" | "d.ts";
     /** Compiler options which are automatically just forwarded on */
-    compilerOptions: import("monaco-editor").languages.typescript.CompilerOptions;
+    compilerOptions: CompilerOptions;
     /** Optional monaco settings overrides */
-    monacoSettings?: import("monaco-editor").editor.IEditorOptions | undefined;
+    monacoSettings?: import("monaco-editor").editor.IEditorOptions;
     /** Acquire types via type acquisition */
     acquireTypes: boolean;
     /** Support twoslash compiler options */
     supportTwoslashCompilerOptions: boolean;
     /** Get the text via query params and local storage, useful when the editor is the main experience */
-    suppressAutomaticallyGettingDefaultText?: true | undefined;
+    suppressAutomaticallyGettingDefaultText?: true;
     /** Suppress setting compiler options from the compiler flags from query params */
-    suppressAutomaticallyGettingCompilerFlags?: true | undefined;
+    suppressAutomaticallyGettingCompilerFlags?: true;
     /** Optional path to TypeScript worker wrapper class script, see https://github.com/microsoft/monaco-typescript/pull/65  */
-    customTypeScriptWorkerPath?: string | undefined;
+    customTypeScriptWorkerPath?: string;
     /** Logging system */
     logger: {
         log: (...args: any[]) => void;
@@ -77,15 +77,15 @@ export declare const createTypeScriptSandbox: (partialConfig: Partial<SandboxCon
     /** The same config you passed in */
     config: {
         text: string;
-        useJavaScript?: boolean | undefined;
+        useJavaScript?: boolean;
         filetype: "js" | "ts" | "d.ts";
         compilerOptions: CompilerOptions;
-        monacoSettings?: import("monaco-editor").editor.IEditorOptions | undefined;
+        monacoSettings?: import("monaco-editor").editor.IEditorOptions;
         acquireTypes: boolean;
         supportTwoslashCompilerOptions: boolean;
-        suppressAutomaticallyGettingDefaultText?: true | undefined;
-        suppressAutomaticallyGettingCompilerFlags?: true | undefined;
-        customTypeScriptWorkerPath?: string | undefined;
+        suppressAutomaticallyGettingDefaultText?: true;
+        suppressAutomaticallyGettingCompilerFlags?: true;
+        customTypeScriptWorkerPath?: string;
         logger: {
             log: (...args: any[]) => void;
             error: (...args: any[]) => void;
@@ -95,15 +95,15 @@ export declare const createTypeScriptSandbox: (partialConfig: Partial<SandboxCon
         domID: string;
     } | {
         text: string;
-        useJavaScript?: boolean | undefined;
+        useJavaScript?: boolean;
         filetype: "js" | "ts" | "d.ts";
         compilerOptions: CompilerOptions;
-        monacoSettings?: import("monaco-editor").editor.IEditorOptions | undefined;
+        monacoSettings?: import("monaco-editor").editor.IEditorOptions;
         acquireTypes: boolean;
         supportTwoslashCompilerOptions: boolean;
-        suppressAutomaticallyGettingDefaultText?: true | undefined;
-        suppressAutomaticallyGettingCompilerFlags?: true | undefined;
-        customTypeScriptWorkerPath?: string | undefined;
+        suppressAutomaticallyGettingDefaultText?: true;
+        suppressAutomaticallyGettingCompilerFlags?: true;
+        customTypeScriptWorkerPath?: string;
         logger: {
             log: (...args: any[]) => void;
             error: (...args: any[]) => void;
@@ -114,7 +114,7 @@ export declare const createTypeScriptSandbox: (partialConfig: Partial<SandboxCon
         domID: string;
     };
     /** A list of TypeScript versions you can use with the TypeScript sandbox */
-    supportedVersions: readonly ["5.3.1-rc", "5.3.0-beta", "5.2.2", "5.1.6", "5.0.4", "4.9.5", "4.8.4", "4.7.4", "4.6.4", "4.5.5", "4.4.4", "4.3.5", "4.2.3", "4.1.5", "4.0.5", "3.9.7", "3.8.3", "3.7.5", "3.6.3", "3.5.1", "3.3.3", "3.1.6", "3.0.1", "2.8.1", "2.7.2", "2.4.1"];
+    supportedVersions: readonly ["5.8.0-beta", "5.7.3", "5.6.3", "5.5.4", "5.4.5", "5.3.3", "5.2.2", "5.1.6", "5.0.4", "4.9.5", "4.8.4", "4.7.4", "4.6.4", "4.5.5", "4.4.4", "4.3.5", "4.2.3", "4.1.5", "4.0.5", "3.9.7", "3.8.3", "3.7.5", "3.6.3", "3.5.1", "3.3.3", "3.1.6", "3.0.1", "2.8.1", "2.7.2", "2.4.1"];
     /** The monaco editor instance */
     editor: import("monaco-editor").editor.IStandaloneCodeEditor;
     /** Either "typescript" or "javascript" depending on your config */
@@ -126,7 +126,7 @@ export declare const createTypeScriptSandbox: (partialConfig: Partial<SandboxCon
     /** A copy of require("@typescript/vfs") this can be used to quickly set up an in-memory compiler runs for ASTs, or to get complex language server results (anything above has to be serialized when passed)*/
     tsvfs: typeof tsvfs;
     /** Get all the different emitted files after TypeScript is run */
-    getEmitResult: () => Promise<import("typescript").EmitOutput>;
+    getEmitResult: (emitOnlyDtsFiles?: boolean, forceDtsEmit?: boolean) => Promise<import("typescript").EmitOutput>;
     /** Gets just the JavaScript for your sandbox, will transpile if in TS only */
     getRunnableJS: () => Promise<string>;
     /** Gets the DTS output of the main code in the editor */
@@ -162,6 +162,7 @@ export declare const createTypeScriptSandbox: (partialConfig: Partial<SandboxCon
         host: {
             compilerHost: import("typescript").CompilerHost;
             updateFile: (sourceFile: import("typescript").SourceFile) => boolean;
+            deleteFile: (sourceFile: import("typescript").SourceFile) => boolean;
         };
         fsMap: Map<string, string>;
     }>;
@@ -170,85 +171,85 @@ export declare const createTypeScriptSandbox: (partialConfig: Partial<SandboxCon
     /** The Sandbox's default compiler options  */
     compilerDefaults: {
         [x: string]: import("monaco-editor").languages.typescript.CompilerOptionsValue;
-        allowJs?: boolean | undefined;
-        allowSyntheticDefaultImports?: boolean | undefined;
-        allowUmdGlobalAccess?: boolean | undefined;
-        allowUnreachableCode?: boolean | undefined;
-        allowUnusedLabels?: boolean | undefined;
-        alwaysStrict?: boolean | undefined;
-        baseUrl?: string | undefined;
-        charset?: string | undefined;
-        checkJs?: boolean | undefined;
-        declaration?: boolean | undefined;
-        declarationMap?: boolean | undefined;
-        emitDeclarationOnly?: boolean | undefined;
-        declarationDir?: string | undefined;
-        disableSizeLimit?: boolean | undefined;
-        disableSourceOfProjectReferenceRedirect?: boolean | undefined;
-        downlevelIteration?: boolean | undefined;
-        emitBOM?: boolean | undefined;
-        emitDecoratorMetadata?: boolean | undefined;
-        experimentalDecorators?: boolean | undefined;
-        forceConsistentCasingInFileNames?: boolean | undefined;
-        importHelpers?: boolean | undefined;
-        inlineSourceMap?: boolean | undefined;
-        inlineSources?: boolean | undefined;
-        isolatedModules?: boolean | undefined;
-        jsx?: import("monaco-editor").languages.typescript.JsxEmit | undefined;
-        keyofStringsOnly?: boolean | undefined;
-        lib?: string[] | undefined;
-        locale?: string | undefined;
-        mapRoot?: string | undefined;
-        maxNodeModuleJsDepth?: number | undefined;
-        module?: import("monaco-editor").languages.typescript.ModuleKind | undefined;
-        moduleResolution?: import("monaco-editor").languages.typescript.ModuleResolutionKind | undefined;
-        newLine?: import("monaco-editor").languages.typescript.NewLineKind | undefined;
-        noEmit?: boolean | undefined;
-        noEmitHelpers?: boolean | undefined;
-        noEmitOnError?: boolean | undefined;
-        noErrorTruncation?: boolean | undefined;
-        noFallthroughCasesInSwitch?: boolean | undefined;
-        noImplicitAny?: boolean | undefined;
-        noImplicitReturns?: boolean | undefined;
-        noImplicitThis?: boolean | undefined;
-        noStrictGenericChecks?: boolean | undefined;
-        noUnusedLocals?: boolean | undefined;
-        noUnusedParameters?: boolean | undefined;
-        noImplicitUseStrict?: boolean | undefined;
-        noLib?: boolean | undefined;
-        noResolve?: boolean | undefined;
-        out?: string | undefined;
-        outDir?: string | undefined;
-        outFile?: string | undefined;
-        paths?: import("monaco-editor").languages.typescript.MapLike<string[]> | undefined;
-        preserveConstEnums?: boolean | undefined;
-        preserveSymlinks?: boolean | undefined;
-        project?: string | undefined;
-        reactNamespace?: string | undefined;
-        jsxFactory?: string | undefined;
-        composite?: boolean | undefined;
-        removeComments?: boolean | undefined;
-        rootDir?: string | undefined;
-        rootDirs?: string[] | undefined;
-        skipLibCheck?: boolean | undefined;
-        skipDefaultLibCheck?: boolean | undefined;
-        sourceMap?: boolean | undefined;
-        sourceRoot?: string | undefined;
-        strict?: boolean | undefined;
-        strictFunctionTypes?: boolean | undefined;
-        strictBindCallApply?: boolean | undefined;
-        strictNullChecks?: boolean | undefined;
-        strictPropertyInitialization?: boolean | undefined;
-        stripInternal?: boolean | undefined;
-        suppressExcessPropertyErrors?: boolean | undefined;
-        suppressImplicitAnyIndexErrors?: boolean | undefined;
-        target?: import("monaco-editor").languages.typescript.ScriptTarget | undefined;
-        traceResolution?: boolean | undefined;
-        resolveJsonModule?: boolean | undefined;
-        types?: string[] | undefined;
-        typeRoots?: string[] | undefined;
-        esModuleInterop?: boolean | undefined;
-        useDefineForClassFields?: boolean | undefined;
+        allowJs?: boolean;
+        allowSyntheticDefaultImports?: boolean;
+        allowUmdGlobalAccess?: boolean;
+        allowUnreachableCode?: boolean;
+        allowUnusedLabels?: boolean;
+        alwaysStrict?: boolean;
+        baseUrl?: string;
+        charset?: string;
+        checkJs?: boolean;
+        declaration?: boolean;
+        declarationMap?: boolean;
+        emitDeclarationOnly?: boolean;
+        declarationDir?: string;
+        disableSizeLimit?: boolean;
+        disableSourceOfProjectReferenceRedirect?: boolean;
+        downlevelIteration?: boolean;
+        emitBOM?: boolean;
+        emitDecoratorMetadata?: boolean;
+        experimentalDecorators?: boolean;
+        forceConsistentCasingInFileNames?: boolean;
+        importHelpers?: boolean;
+        inlineSourceMap?: boolean;
+        inlineSources?: boolean;
+        isolatedModules?: boolean;
+        jsx?: import("monaco-editor").languages.typescript.JsxEmit;
+        keyofStringsOnly?: boolean;
+        lib?: string[];
+        locale?: string;
+        mapRoot?: string;
+        maxNodeModuleJsDepth?: number;
+        module?: import("monaco-editor").languages.typescript.ModuleKind;
+        moduleResolution?: import("monaco-editor").languages.typescript.ModuleResolutionKind;
+        newLine?: import("monaco-editor").languages.typescript.NewLineKind;
+        noEmit?: boolean;
+        noEmitHelpers?: boolean;
+        noEmitOnError?: boolean;
+        noErrorTruncation?: boolean;
+        noFallthroughCasesInSwitch?: boolean;
+        noImplicitAny?: boolean;
+        noImplicitReturns?: boolean;
+        noImplicitThis?: boolean;
+        noStrictGenericChecks?: boolean;
+        noUnusedLocals?: boolean;
+        noUnusedParameters?: boolean;
+        noImplicitUseStrict?: boolean;
+        noLib?: boolean;
+        noResolve?: boolean;
+        out?: string;
+        outDir?: string;
+        outFile?: string;
+        paths?: import("monaco-editor").languages.typescript.MapLike<string[]>;
+        preserveConstEnums?: boolean;
+        preserveSymlinks?: boolean;
+        project?: string;
+        reactNamespace?: string;
+        jsxFactory?: string;
+        composite?: boolean;
+        removeComments?: boolean;
+        rootDir?: string;
+        rootDirs?: string[];
+        skipLibCheck?: boolean;
+        skipDefaultLibCheck?: boolean;
+        sourceMap?: boolean;
+        sourceRoot?: string;
+        strict?: boolean;
+        strictFunctionTypes?: boolean;
+        strictBindCallApply?: boolean;
+        strictNullChecks?: boolean;
+        strictPropertyInitialization?: boolean;
+        stripInternal?: boolean;
+        suppressExcessPropertyErrors?: boolean;
+        suppressImplicitAnyIndexErrors?: boolean;
+        target?: import("monaco-editor").languages.typescript.ScriptTarget;
+        traceResolution?: boolean;
+        resolveJsonModule?: boolean;
+        types?: string[];
+        typeRoots?: string[];
+        esModuleInterop?: boolean;
+        useDefineForClassFields?: boolean;
     };
     /** The Sandbox's current compiler options */
     getCompilerOptions: () => import("monaco-editor").languages.typescript.CompilerOptions;

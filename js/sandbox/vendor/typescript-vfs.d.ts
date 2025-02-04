@@ -5,12 +5,22 @@ type LanguageServiceHost = import("typescript").LanguageServiceHost;
 type CompilerHost = import("typescript").CompilerHost;
 type SourceFile = import("typescript").SourceFile;
 type TS = typeof import("typescript");
+type FetchLike = (url: string) => Promise<{
+    json(): Promise<any>;
+    text(): Promise<string>;
+}>;
+interface LocalStorageLike {
+    getItem(key: string): string | null;
+    setItem(key: string, value: string): void;
+    removeItem(key: string): void;
+}
 export interface VirtualTypeScriptEnvironment {
     sys: System;
     languageService: import("typescript").LanguageService;
     getSourceFile: (fileName: string) => import("typescript").SourceFile | undefined;
     createFile: (fileName: string, content: string) => void;
     updateFile: (fileName: string, content: string, replaceTextSpan?: import("typescript").TextSpan) => void;
+    deleteFile: (fileName: string) => void;
 }
 /**
  * Makes a virtual copy of the TypeScript environment. This is the main API you want to be using with
@@ -46,6 +56,10 @@ export declare const createDefaultMapFromNodeModules: (_compilerOptions: Compile
 export declare const addAllFilesFromFolder: (map: Map<string, string>, workingDir: string) => void;
 /** Adds all files from node_modules/@types into the FS Map */
 export declare const addFilesForTypesIntoFolder: (map: Map<string, string>) => void;
+export interface LZString {
+    compressToUTF16(input: string): string;
+    decompressFromUTF16(compressed: string): string;
+}
 /**
  * Create a virtual FS Map with the lib files from a particular TypeScript
  * version based on the target, Always includes dom ATM.
@@ -58,7 +72,7 @@ export declare const addFilesForTypesIntoFolder: (map: Map<string, string>) => v
  * @param fetcher an optional replacement for the global fetch function (tests mainly)
  * @param storer an optional replacement for the localStorage global (tests mainly)
  */
-export declare const createDefaultMapFromCDN: (options: CompilerOptions, version: string, cache: boolean, ts: TS, lzstring?: typeof import("lz-string"), fetcher?: typeof fetch, storer?: typeof localStorage) => Promise<Map<string, string>>;
+export declare const createDefaultMapFromCDN: (options: CompilerOptions, version: string, cache: boolean, ts: TS, lzstring?: LZString, fetcher?: FetchLike, storer?: LocalStorageLike) => Promise<Map<string, string>>;
 /**
  * Creates an in-memory System object which can be used in a TypeScript program, this
  * is what provides read/write aspects of the virtual fs
@@ -78,6 +92,7 @@ export declare function createFSBackedSystem(files: Map<string, string>, _projec
 export declare function createVirtualCompilerHost(sys: System, compilerOptions: CompilerOptions, ts: TS): {
     compilerHost: CompilerHost;
     updateFile: (sourceFile: SourceFile) => boolean;
+    deleteFile: (sourceFile: SourceFile) => boolean;
 };
 /**
  * Creates an object which can host a language service against the virtual file-system
@@ -85,5 +100,6 @@ export declare function createVirtualCompilerHost(sys: System, compilerOptions: 
 export declare function createVirtualLanguageServiceHost(sys: System, rootFiles: string[], compilerOptions: CompilerOptions, ts: TS, customTransformers?: CustomTransformers): {
     languageServiceHost: LanguageServiceHost;
     updateFile: (sourceFile: import("typescript").SourceFile) => void;
+    deleteFile: (sourceFile: import("typescript").SourceFile) => void;
 };
 export {};

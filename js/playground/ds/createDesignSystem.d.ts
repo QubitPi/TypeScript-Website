@@ -44,11 +44,11 @@ export declare const createDesignSystem: (sandbox: Sandbox) => (container: Eleme
     createTextInput: (config: {
         id: string;
         placeholder: string;
-        onChanged?: ((text: string, input: HTMLInputElement) => void) | undefined;
+        onChanged?: (text: string, input: HTMLInputElement) => void;
         onEnter: (text: string, input: HTMLInputElement) => void;
-        value?: string | undefined;
-        keepValueAcrossReloads?: true | undefined;
-        isEnabled?: ((input: HTMLInputElement) => boolean) | undefined;
+        value?: string;
+        keepValueAcrossReloads?: true;
+        isEnabled?: (input: HTMLInputElement) => boolean;
     }) => HTMLFormElement;
     /** Renders an AST tree */
     createASTTree: (node: Node, settings?: {
@@ -57,14 +57,14 @@ export declare const createDesignSystem: (sandbox: Sandbox) => (container: Eleme
     /** Creates an input button */
     button: (settings: {
         label: string;
-        onclick?: ((ev: MouseEvent) => void) | undefined;
+        onclick?: (ev: MouseEvent) => void;
     }) => HTMLInputElement;
     /** Used to re-create a UI like the tab bar at the top of the plugins section */
     createTabBar: () => HTMLDivElement;
     /** Used with createTabBar to add buttons */
     createTabButton: (text: string) => HTMLButtonElement;
     /** A general "restart your browser" message  */
-    declareRestartRequired: (i?: ((key: string) => string) | undefined) => void;
+    declareRestartRequired: (i?: (key: string) => string) => void;
     /** Create a new Design System instance and add it to the container. You'll need to cast
      * this after usage, because otherwise the type-system circularly references itself
      */

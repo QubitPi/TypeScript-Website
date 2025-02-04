@@ -6,16 +6,24 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
     constructor() {
       super(...arguments);
       this.mainFile = `input.${extension}`;
+      // This is the cache key that additionalTwoslashFiles is reasonable
       this.twolashFilesModelString = "";
       this.twoslashFiles = [];
       this.additionalTwoslashFilenames = [];
     }
+    // These two are basically using the internals of the TypeScriptWorker
+    // but I don't think it's likely they're ever going to change
+    // We need a way to get access to the main text of the monaco editor, which is currently only
+    // grabbable via these mirrored models. There's only one in a Playground.
     getMainText() {
       return this._ctx.getMirrorModels()[0].getValue();
     }
+    // Useful for grabbing a TypeScript program or 
     getLanguageService() {
       return this._languageService;
     }
+    // Updates our in-memory twoslash file representations if needed, because this gets called
+    // a lot, it caches the results according to the main text in the monaco editor.
     updateTwoslashInfoIfNeeded() {
       const modelValue = this.getMainText();
       const files = modelValue.split("// @filename: ");
@@ -32,7 +40,7 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
       const splits = splitTwoslashCodeInfoFiles(modelValue, this.mainFile, "file:///");
       const twoslashResults = splits.map((f) => {
         const content = f[1].join("\n");
-        const updatedAt = new Date().toUTCString();
+        const updatedAt = (/* @__PURE__ */ new Date()).toUTCString();
         return {
           file: f[0],
           content,
@@ -55,6 +63,7 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
       const giving = this.twoslashFiles.map((f) => f.file);
       return giving.map((f) => f.replace("file://", ""));
     }
+    // Takes a fileName and position and shifts it to the new file/pos according to twoslash splits
     repositionInTwoslash(fileName, position) {
       this.updateTwoslashInfoIfNeeded();
       if (this.twoslashFiles.length === 0)
@@ -67,11 +76,17 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
         tsFileName: thisFile.file
       };
     }
+    // What TypeScript files are available, include created by twoslash files
+    // this is asked a lot, so I created a specific variable for this which
+    // doesn't include a copy of the default file in the super call
     getScriptFileNames() {
       const main = super.getScriptFileNames();
       const files = [...main, ...this.additionalTwoslashFilenames];
       return files;
     }
+    // This is TypeScript asking 'whats the content of this file' - we want
+    // to override the underlying TS vfs model with our twoslash multi-file 
+    // files when possible, otherwise pass it back to super
     _getScriptText(fileName) {
       const twoslashed = this.twoslashFiles.find((f) => fileName === f.file);
       if (twoslashed) {
@@ -79,6 +94,10 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
       }
       return super._getScriptText(fileName);
     }
+    // TypeScript uses a versioning system on a file to know whether it needs
+    // to re-look over the file. What we do is set the date time when re-parsing 
+    // with twoslash and always pass that number, so that any changes are reflected
+    // in the tsserver
     getScriptVersion(fileName) {
       this.updateTwoslashInfoIfNeeded();
       const thisFile = this.twoslashFiles.find((f) => f.file);
@@ -86,6 +105,10 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
         return thisFile.updatedAt;
       return super.getScriptVersion(fileName);
     }
+    // The APIs which we override that provide the tooling experience, rebound to 
+    // handle the potential multi-file mode. 
+    // Perhaps theres a way to make all these `bind(this)` gone away?
+    // Bunch of promise -> diag[] functions
     async getSemanticDiagnostics(fileName) {
       return this._getDiagsWrapper(super.getSemanticDiagnostics.bind(this), fileName);
     }
@@ -98,6 +121,8 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
     async getSuggestionDiagnostics(fileName) {
       return this._getDiagsWrapper(super.getSuggestionDiagnostics.bind(this), fileName);
     }
+    // Funcs under here include an empty response when someone is interacting inside the gaps
+    // between files (e.g. the // @filename: xyz.ts bit)
     async getQuickInfoAtPosition(fileName, position) {
       const empty = Promise.resolve({ kind: "", kindModifiers: "", textSpan: { start: 0, length: 0 } });
       const pos = await this._overrideFileNamePos(super.getQuickInfoAtPosition.bind(this), fileName, position, void 0, empty, (result, twoslashFile) => {
@@ -163,6 +188,8 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
       const empty = Promise.resolve([]);
       return this._overrideFileNamePos(super.getNavigationBarItems.bind(this), fileName, -1, void 0, empty, (result) => result);
     }
+    // Helper functions which make the rebindings easier to manage
+    // Can handle any file, pos function being re-bound
     async _overrideFileNamePos(fnc, fileName, position, other, empty, editFunc) {
       const newLocation = this.repositionInTwoslash(fileName, position);
       if (!newLocation)
@@ -172,6 +199,8 @@ var worker = (TypeScriptWorker, ts, libFileMap) => {
       editFunc(result, this.twoslashFiles.find((f) => f.file === tsFileName));
       return result;
     }
+    // Can handle a func which is multi-cast to all possible files and then rebound with their
+    // positions back to the original file mapping
     async _getDiagsWrapper(getDiagnostics, fileName) {
       if (!this.getLanguageService())
         return [];
