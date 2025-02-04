@@ -44,7 +44,7 @@ type I1 = Person["alve"];
 > string to index an object with specific keys. To solve the error, type the `string` as one of the object's keys using
 > `keyof typeof obj`.
 > 
-> ![Error loading no-index-signature-with-parameter-found.png](/TypeScript-Website/images/docs/no-index-signature-with-parameter-found.png)
+> ![Error loading no-index-signature-with-parameter-found.png](/images/docs/no-index-signature-with-parameter-found.png)
 > 
 > Here is an example of how the error occurs.
 > 
