@@ -1,9 +1,6 @@
 name: CI
 on:
   workflow_call:
-  pull_request:
-    branches:
-      - master
 
 # Ensure scripts are run with pipefail. See:
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference
@@ -68,10 +65,10 @@ jobs:
           fi
         name: Check for uncommitted changes
         id: check-diff
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && !github.event.pull_request.head.repo.fork
 
       - name: Upload diff artifact
-        if: ${{ failure() && steps.check-diff.conclusion == 'failure' }}
+        if: ${{ failure() && steps.check-diff.conclusion == 'failure' && !github.event.pull_request.head.repo.fork }}
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: missing.patch
