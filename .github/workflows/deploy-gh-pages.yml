@@ -3,6 +3,7 @@
 name: Deploy to GitHub Pages
 
 "on":
+  pull_request:
   push:
     branches:
       - master
@@ -28,6 +29,8 @@ jobs:
           pnpm bootstrap
           pnpm build
           pnpm build-site
+      - name: Load CNAME
+        run: echo typescript.qubitpi.org > ./packages/typescriptlang-org/public/CNAME
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
